@@ -1,0 +1,972 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>Nginx Windows配置(转)-想好再说-搜狐博客</title>
+<meta name="Keywords" content="Nginx Windows配置(转)" />
+<meta name="description" content="Nginx Windows配置(转)" />
+<meta name="robots" content="index,follow" />
+<script type="text/javascript">
+var JSPATH = {},
+HCP='http://js2.pp.sohu.com.cn/ppp/js/common_v_20120320/',
+HMP='http://js4.pp.sohu.com.cn/ppp/js/module_v_20130412/',
+HTP='http://js5.pp.sohu.com.cn/ppp/js/tool_v_090418/';
+JSPATH.util={common:HCP+'common.js',module:HMP,tool:HTP};
+
+var BLOG_SP = 'http://js3.pp.sohu.com.cn/ppp/blog/js_ppp_v_20130412/';
+JSPATH.blog={_path:BLOG_SP};
+
+var TP = 'http://js2.pp.sohu.com.cn/ppp/group/toolbar_v_090827/';
+
+</script>
+
+<link href="http://js2.pp.sohu.com.cn/ppp/blog/themes_ppp_v_20130620/def/style.css" rel="stylesheet" type="text/css" />
+
+
+<link id="themeCss" href="http://js2.pp.sohu.com.cn/ppp/blog/themes_ppp_v_20130620/p2012/style.css" themeid="p2012" rel="stylesheet" type="text/css" />
+
+
+<link rel="stylesheet" type="text/css" href="http://js3.pp.sohu.com.cn/ppp/blog/entry_v_100528/css/revoArticle.v.100531.css" /> 
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss" />
+<style type="text/css">
+	.poping-yuntu {
+		position: fixed;
+		display: none;
+		_position: absolute;
+		z-index: 500;
+		width: 352px;
+		background-color: #ddd;
+		padding: 3px;
+	}
+	.poping-yuntu-wrapper {
+		border: 1px solid #999;
+		width: 350px;
+		background-color: #FFF;
+	}
+	.poping-yuntu p {
+		margin: 0;
+		color: #333;
+	}
+	.poping-yuntu a {
+		text-decoration: none;
+	}
+	.poping-yuntu .bf-header {
+		height: 28px;
+		line-height: 28px;
+		background-color: #f7f7f7;
+		color: #818181;
+		width: 100%;
+	}
+	.poping-yuntu .bf-header p {
+		padding-left: 15px;
+		line-height: 28px;
+		color: #818181;
+	}
+	.poping-yuntu a.btn-close {
+		float: right;
+		width: 10px;
+		height: 10px;
+		background: url('http://s3.suc.itc.cn/app/tophoto/d/close.gif') no-repeat 0 0;
+		margin: 8px 8px 0 0;
+		cursor: pointer;
+		display: inline-block;
+		overflow: hidden;
+	}
+	.poping-yuntu a.btn-close:hover {
+		background-position: 0 -20px;
+	}
+	.poping-yuntu .bf-body {
+		background-color: #FFF;
+		width: 330px;
+		height: 130px;
+		overflow: hidden;
+		margin: 0 auto;
+		zoom: 1;
+	}
+	.poping-yuntu .bf-body p.progress {
+		width:218px;
+		margin: 40px auto 0;
+	}
+	.poping-yuntu .bf-body h2.progress {
+		width:265px;
+		margin: 15px auto;
+		padding: 0 0 0 15px;
+	}
+	.poping-yuntu .bf-body .img {
+
+	}
+	.poping-yuntu .bf-body .img img{
+		margin: 6px;
+	}
+	.poping-yuntu .bf-body .img a{
+		border: 1px solid #D4D4D4;
+		display: block;
+		float: left;
+		margin: 0 10px;
+	}
+	.poping-yuntu .bf-body .txt {
+		padding: 10px 3px;
+		clear: both;
+	}
+	.poping-yuntu .bf-body .txt p{
+		padding: 0 0 0 15px;
+		background: url("http://s3.suc.itc.cn/app/tophoto/d/yes.gif") no-repeat 0 55%;
+	}
+	.poping-yuntu .bf-body .txt p.error{
+		padding: 0 0 0 12px;
+		background: url("http://s3.suc.itc.cn/app/tophoto/d/error.gif") no-repeat 0 55%;
+	}
+	.poping-yuntu .bf-body .txt a {
+		float: right;
+		color: #1f87be;
+	}
+	.poping-yuntu .bf-body .txt .tt a {
+		font-weight: bold;
+	}
+	.poping-yuntu .bf-body .txt p.tt {
+		font-size: 14px;
+		color: #333;
+		padding-bottom: 5px;
+	}
+	.poping-yuntu .bf-body .txt p.con {
+		padding-bottom: 20px;
+	}
+	.poping-yuntu .bf-body .txt p.success {
+		padding: 10px 0 34px 45px;
+		background: url('http://s3.suc.itc.cn//s/blog/d/bg_bg_right.gif') no-repeat 10px 10px;
+	}
+	.poping-yuntu .bf-btn {
+		height: 34px;
+		line-height: 34px;
+		margin-bottom: 10px;
+		text-align: center;
+	}
+	.poping-yuntu  .bf-btn a {
+		vertical-align: middle;
+		color: #1f87be;
+	}
+	.poping-yuntu .bf-body .txt .bf-btn a.btn-geren {
+		background: url("http://s3.suc.itc.cn//s/blog/d/bg_pop_bf.gif") no-repeat scroll 0 -117px transparent;
+		display: inline-block;
+		height: 32px;
+		margin-left: 10px;
+		margin-right: 20px;
+		width: 106px;
+	}
+	.poping-yuntu .bf-btn a.btn-enter {
+		width: 106px;
+		height: 32px;
+		display: inline-block;
+		background: url('http://s3.suc.itc.cn/s/blog/d/bg_pop_bf.gif') no-repeat 0 -23px;
+		overflow: hidden;
+	}
+	.poping-yuntu .bf-btn a.btn-enter:hover {
+		background-position: 0 -70px;
+	}
+	.poping-yuntu .bf-btn a.btn-geren {
+		width: 106px;
+		height: 32px;
+		display: inline-block;
+		background: url('http://s3.suc.itc.cn//s/blog/d/bg_pop_bf.gif') no-repeat 0 -117px;
+		margin-right: 20px;
+		margin-left: 80px;
+	}
+	.poping-yuntu .bf-footer {
+		height: 26px;
+		line-height: 26px;
+		border-top: 1px solid #f9f0bb;
+		background-color: #fff9d7;
+		text-indent: 15px;
+	}
+	.poping-yuntu .bf-footer {
+		color: #c07b2b;
+	}
+	.poping-mask {
+		position: fixed;
+		display: none;
+		_position: absolute;
+		left: 0;
+		top: 0;
+		_top: expression(documentElement.scrollTop + 0 + "px");
+		background: white;
+		opacity: 0.1;
+		filter: alpha(opacity=10);
+	}
+</style>
+</head>
+<body>
+<a name="top"></a>
+<script type="text/javascript">
+var _blog_base_url = '/';
+var _blog_base_path = '/';
+var _blog_domain='grim1980';
+var _ebi = '2c0c723892';
+var _ept = 'grim1980';
+var _xpt = 'Z3JpbTE5ODBAc29odS5jb20=';
+var _upt = 'Z3JpbTE5ODBAc29odS5jb20=';
+var $blog_config = {
+		
+};
+</script>
+ 	<!-- <link rel="stylesheet" type="text/css" href="http://js6.pp.sohu.com.cn/core/js/jquery/itoolbar/global.css" charset="utf-8"/> -->
+    <script type="text/javascript">
+          var toolbarSysRec = [
+                                
+                   
+                   
+];
+
+function showToolbarAd(){
+	try {
+	        if (toolbarSysRec) {
+	                var len = toolbarSysRec.length;
+	                if (!toolbarSysRec[len - 1]) {
+	                        len = len - 1;
+	                }
+	                var n = Math.floor(Math.random() * len);
+	                var rd = toolbarSysRec[n];
+	                return '<a href="'+ rd.tip.url + '" target="_blank" onmousedown="CA.q(\'toolbar_tips\');">'
+	                                                + rd.tip.title + '</a>';
+	        }
+	} catch (err) {
+		
+	}
+     return '';
+}
+</script>
+<div id="isohu-topbar" data-appid="1019" data-type="blog" ></div>
+ 
+       
+<div id="_preLoadText" style="text-align:center;">loading...</div>
+
+<script type="text/javascript" src="http://js6.pp.sohu.com.cn/core/js/jquery/jquery.js" charset="utf-8"></script>
+<script type="text/javascript">
+var SP = BLOG_SP;
+var ThP = 'http://js2.pp.sohu.com.cn/ppp/blog/themes_ppp_v_20130620/';
+var WP = '/ppp/blog/widgets_v_20130620/';
+var UWAP = 'http://js3.pp.sohu.com.cn/ppp/blog/widgets_v_080920/uwa_widget/';
+document.write('<scr'+'ipt type="text/javascript" src="'+ SP + 'sohublog.js"></scr'+'ipt>');
+</script>
+<script type="text/javascript">
+var utf8jss = [SP+'common.v.20130513.js', 'http://r.suc.itc.cn/combo.action?v.120412&r=/itoolbar/core/base64.js|/itoolbar/core/jquery.cookie.js|/itoolbar/core/jquery.easing.js|/itoolbar/core/jquery.hotmap.js|/itoolbar/core/passport.js&t=js&c=utf-8', 'http://r.suc.itc.cn/loader.itoolbar.public.js'];
+lsl([HCP+'common.js'], 'utf-8');
+lsl(['http://js2.pp.sohu.com.cn/ppp/blog/js_v_100326/pp18030_all.v.13042501.js', HTP+'effect.js']);
+lsl(utf8jss, 'utf-8');
+var noToolBar = true;
+lsl([TP+'toolbar.v.11032401.js']);
+</script>
+
+<div id="wrapper">
+	<div id="innerWrapper" >
+		
+
+
+
+<div id="header">
+  <div id="playerBox"><div id="innerPlayerBox"></div></div>
+  <div id="innerHeader">
+  
+	<div id="blogLogo"><a href="http://blog.sohu.com"><img src="http://js1.pp.sohu.com.cn/ppp/blog/styles_ppp/images/spacer.gif" id="logo" alt="搜狐博客" /></a></div>
+	<h1 id="blogTitle"><a href="/"  id="blogAdmin" onmousedown="CA.q('blog_header_title');">想好再说</a></h1>
+	<div id="blogUrl">
+		<!-- a href="/">/</a --> 
+		<a href="/" class="navUrl" title="查看想好再说的首页"><img src="http://js1.pp.sohu.com.cn/ppp/blog/styles_ppp/images/custom/icons/house.gif" alt="首页" align="absmiddle"  border="0"/></a><a href="/" class="navUrl" title="查看想好再说的首页">首页</a>
+        <a href="/entry/" class="navUrl" title="查看想好再说的日志" onmousedown="CA.q('blog_header_entry');"><img src="http://js1.pp.sohu.com.cn/ppp/blog/styles_ppp/images/ico_entry.gif" alt="日志" align="absmiddle"  border="0"/></a><a href="/entry/" target="_blank" class="navUrl" title="查看想好再说的日志" onmousedown="CA.q('blog_header_entry');">日志</a> 
+        <a href="http://grim1980.i.sohu.com/album/index.htm" class="navUrl" title="查看想好再说的相册"  target="_blank" onmousedown="CA.q('blog_header_photo');"><img src="http://js1.pp.sohu.com.cn/ppp/blog/styles_ppp/images/ico_picture.gif" alt="相册" align="absmiddle" border="0" /></a><a href="http://grim1980.i.sohu.com/album/index.htm" class="navUrl"  target="_blank" title="查看想好再说的相册" onmousedown="CA.q('blog_header_photo');">相册</a> 
+        <a href="http://my.tv.sohu.com/people/Z3JpbTE5ODBAc29odS5jb20=" target="_blank" class="navUrl" title="查看想好再说的视频" onmousedown="CA.q('blog_header_video');"><img src="http://js1.pp.sohu.com.cn/ppp/blog/styles_ppp/images/ico_video.gif" alt="视频" align="absmiddle" border="0" /></a><a href="http://my.tv.sohu.com/people/Z3JpbTE5ODBAc29odS5jb20=" target="_blank" class="navUrl" title="查看想好再说的视频" onmousedown="CA.q('blog_header_video');">视频</a> 
+        <a href="http://grim1980.i.sohu.com/profile/index.htm" class="navUrl" title="查看想好再说的个人资料" onmousedown="CA.q('blog_header_profile');"><img  border ="0" src="http://js1.pp.sohu.com.cn/ppp/blog/styles_ppp/images/ico_profile.gif" alt="资料" align="absmiddle" /></a><a href="http://grim1980.i.sohu.com/profile/index.htm" class="navUrl" title="查看想好再说的个人资料" onmousedown="CA.q('blog_header_profile');">资料</a>
+		<a href="/rss" target="_blank" onmousedown="CA.q('blog_header_rss');"><img src="http://js1.pp.sohu.com.cn/ppp/blog/styles_ppp/images/ico_rss.gif" alt="RSS订阅" align="absmiddle" /></a>
+		<a href="javascript:void(0)" name="onlineIcon" style="display:none" rel="" param="Z3JpbTE5ODBAc29odS5jb20=;想好再说"></a>
+	</div>
+	<div id="blogDesc">想好再说</div>
+  </div>
+</div>
+<div id="navBar">
+  <div id="innerNavBar">
+		<ul id="mainNav">
+			<li><a href="/#tp_2c0c723892"><script type="text/javascript">document.write(getNavIco('', '首页'));</script><span>首页</span></a></li> 
+
+		</ul>
+	<ul id="optionNav">
+	  <li id="mngOpr"></li>
+	</ul>
+	<div class="clear"></div>
+  </div>
+</div>
+		<div id="mainWrapper">
+		<div id="innerMainWrapper" class="revolution">
+			<div id="articleContent">
+                <div id="articleInnerContent">
+                <div id="contentLabelBox" style="display:none">
+  					<div id="innerContentLabelBox" style="height:25px;">
+   						 <a href="http://blog.sohu.com">搜狐博客</a> 
+							&gt; <a href="/">想好再说</a>
+							&gt; <a href="/entry/">日志</a>
+    					
+  					</div>
+ 
+  					<div class="clear"></div>
+				</div>
+					
+					
+					
+
+
+
+
+
+
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+	var bruUrl = "http://i.sohu.com/login/logon.do?bru=http://grim1980.blog.sohu.com/169642076.html";
+</script>
+<div id="contentLabelBox" style="display:none">
+  <div id="innerContentLabelBox" style="height:25px;" style="display:none">
+    <a href="http://blog.sohu.com">搜狐博客</a> 
+	&gt; <a href="/">想好再说</a>
+	&gt; <a href="/entry/">日志</a>
+    
+  </div>
+ 
+  <div class="clear"></div>
+</div>
+<div class="content-top"></div>
+<div 
+ 
+class="revoWarrper profileL"
+> 
+
+
+
+
+
+
+
+
+
+
+<div class="revoArtLeft">
+	<div class="mod" id="m_1"><div class="modFrame"><table cellspacing="0" cellpadding="0" class="modTable"><thead><tr>
+		<td class="mheader lt"></td>
+		<td class="mheader t">
+			<div class="modHeader clearfix">
+				<div class="modIco" style=""><img src="http://js1.pp.sohu.com.cn/ppp/blog/widgets_v_100427/profile/ico_widget.gif"></div>
+				<div class="modTitle">个人资料</div>
+			</div>
+		</td><td class="mheader rt"></td></tr></thead><tbody><tr style="display: none;"><td class="mneck l"></td><td class="mneck ec"><div class="modEditCon"></div></td><td class="mneck r"></td></tr><tr><td class="mbody l"></td><td class="mbody c"><div class="modCon profile-content"><div>
+    <div id="profile_photo"  title="用户头像">
+    	<img src="http://photo.pic.sohu.com/images/oldblog/person/11111.gif"/>
+    </div>
+    <div class="revoMyname"><a href ="/" onmousedown="CA.q('blog_entry_profile_blogName');"><strong>grim1980</strong></a></div>
+    <div class="revoBtns">
+   
+    	<div >
+    <a onmousedown="CA.q('blog_entry_profile_viewProfile');" target="_blank" title="查看个人资料" href="http://grim1980.i.sohu.com/profile/index.htm" class="i-myprofile">看资料</a>
+    
+		<a title="将 想好再说 加为我的跟随" href="javascript:void(0);" class="i-addfriend">加跟随</a><br>
+    
+    <a onmousedown="CA.q('blog_entry_profile_leaveMessage');" target="_blank" title="给他留言" href="/message/" class="i-leavemsg">写留言</a>
+    <a onclick="pokeMe(true,_xpt)" blogico="http://512.img.pp.sohu.com.cn/images/blog/2010/3/25/23/14/12847e420f7g214.jpg" title="向他打招呼" href="javascript:void(0);" onmousedown="CA.q('blog_entry_profile_poke');" class="i-poke">打招呼</a><br />
+    	</div>
+    	
+    </div>
+    <div class="revoBtns03">
+    
+   
+   
+    </div>
+    <style>
+    #sideBlogStat ul{margin:0;overflow:hidden;white-space:nowrap;list-style:none;padding:0;}
+    #sideBlogStat ul li{line-height:20px;}
+    </style>
+    <!-- <div class="revoBtns02" id="sideBlogStat">
+    数据加载中
+    </div> -->
+    
+    <div class="profile_list"></div>
+    <div class="profile_content"><div style="text-align: right; display: none;"><a onmousedown="CA.q('blog_widget_profile_editIntro');" target="_blank" href="http://blog.sohu.com/manage/setting.do">修改个性介绍</a></div>
+     
+    </div></div></div><div style="text-align: right; display: none;" class="modSuffix"><hr><a onmousedown="CA.a('widget_share_' + (isPPLogin() ? (isMyBlog() ? 'admin' : 'blogger') : 'guest'))" href="javascript:void(0);"><img align="absmiddle" src="http://js2.pp.sohu.com.cn/ppp/images/icons/ico_share.gif">推荐给跟随</a></div></td><td class="mbody r"></td></tr></tbody><tfoot><tr><td class="mfooter lb"></td><td class="mfooter b"></td><td class="mfooter rb"></td></tr></tfoot></table></div>
+	</div>
+	<script>
+//showBlogStat(); 
+	</script>
+    
+<!--模块三-->
+
+ 
+    
+ 
+<div class="mod" id="m_3">
+  <div class="modFrame">
+    <table cellspacing="0" cellpadding="0" class="modTable">
+      <thead>
+        <tr>
+          <td class="mheader lt"></td>
+          <td class="mheader t"><div class="modHeader clearfix">
+              <div class="modIco" style=""><img src="http://js3.pp.sohu.com.cn/ppp/blog/entry/i/1_29.gif"></div>
+              <div class="modTitle">博主最新文章</div>
+            </div></td>
+          <td class="mheader rt"></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mbody l"></td>
+          <td class="mbody c">
+          	<div class="modCon profile-content">
+              <ul class="revoArticleLists"  onmousedown="CA.q('blog_entry_latest_list');">
+              
+              	<li>
+                	<a href="/268601970.html">电线过电流速算法 (转)</a>
+                </li>
+                
+              	<li>
+                	<a href="/256482701.html">IIS7 配置SSL 绑定主机头,实现多站点访问</a>
+                </li>
+                
+              	<li>
+                	<a href="/255519333.html">将Log4net的配置配置到的独立文件中</a>
+                </li>
+                
+              	<li>
+                	<a href="/236266757.html">.Net应用程序域(转)</a>
+                </li>
+                
+              	<li>
+                	<a href="/230204253.html">走路技巧</a>
+                </li>
+                
+              	<li>
+                	<a href="/218726501.html">如何查看IIS并发连接数</a>
+                </li>
+                
+              	<li>
+                	<a href="/218724367.html">开启nginx状态监控，查看web服务器的并发连接数。</a>
+                </li>
+                
+              	<li>
+                	<a href="/198674167.html">配置SVN服务器</a>
+                </li>
+                
+              	<li>
+                	<a href="/176574695.html">截取指定长度的字符串（区别汉字和字母）</a>
+                </li>
+                
+              	<li>
+                	<a href="/171061604.html">javascript闭包的使用（转）</a>
+                </li>
+                
+              </ul>
+              <div class="revoArticlrMore"><a href="/entry/" onmousedown="CA.q('blog_entry_lastest_list_more');" target="_blank">更多文章&gt;&gt;</a></div>
+            </div>
+            </td>
+          <td class="mbody r"></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="mfooter lb"></td>
+          <td class="mfooter b"></td>
+          <td class="mfooter rb"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<!--模块四-->
+<div  onmousedown="CA.q('blog_entry_editor_list');">
+<div class=mod id=m_4>
+<div class=modFrame>
+<table class=modTable cellSpacing=0 cellPadding=0>
+<thead>
+<tr>
+<td class="mheader lt"></td>
+<td class="mheader t">
+<div class="modHeader clearfix">
+<div class=modTitle>推荐博文</div></div></td>
+<td class="mheader rt"></td></tr></thead>
+<tbody>
+<tr>
+<td class="mbody l"></td>
+<td class="mbody c">
+<div class="modCon profile-content">
+<div class=revoArticleCom>
+<div class=artComPhoto><a href="http://zhuguangdeyanse.blog.sohu.com/268543944.html" target=_blank><img height=56 alt=实拍平壤地铁 src="http://i0.itc.cn/20130620/a9c_2a146a4f_4922_3683_dbf6_232fa7524c22_1.jpg" width=88 border=0></a><span><a href="http://zhuguangdeyanse.blog.sohu.com/268543944.html" target=_blank>实拍平壤地铁</a></span></div>
+<div class=artComPhoto><a href="http://jishaochengvip.blog.sohu.com/268269838.html" target=_blank><img height=56 alt=画家笔下的毛泽东 src="http://i0.itc.cn/20130619/a9c_1f2ffc81_4086_adc2_097c_e5acd4b9bd5f_1.jpg" width=88 border=0 苦逼?北漂族?=""></a><span><a href="http://jishaochengvip.blog.sohu.com/268269838.html" target=_blank>画家笔下的毛泽东</a></span></div></div>
+<ul class=revoArticleLists>
+<li><a href="http://prozhang.blog.sohu.com/268475595.html" target=_blank>李克强为什么按兵不动 </a><br><a href="http://prozhang.blog.sohu.com/" target=_blank>张军</a></li>
+
+<li><a href="http://liyinheblog.blog.sohu.com/268528637.html" target=_blank>女性择偶为何有“大叔控”情结</a><br><a href="http://liyinheblog.blog.sohu.com/" target=_blank>李银河</a></li>
+
+<li><a href="http://fenqinyang.blog.sohu.com/268594890.html" target=_blank>外国人凭什么亨受超国民待遇</a><br><a href="http://fenqinyang.blog.sohu.com/" target=_blank>风青杨</a></li>
+
+<li><a href="http://madingshengvip.blog.sohu.com/268587110.html" target=_blank>二炮司令员最近发言有何深意</a><br><a href="http://madingshengvip.blog.sohu.com/" target=_blank>马鼎盛</a></li>
+
+<li><a href="http://woshijinmanlou.blog.sohu.com/268532724.html" target=_blank>清朝禁烟加快自身灭亡</a><br><a href="http://woshijinmanlou.blog.sohu.com/" target=_blank>金满楼</a></li>
+
+<li><a href="http://marcia06.blog.sohu.com/268591419.html" target=_blank>怎样的父母能够得到孩子的尊重</a><br><a href="http://marcia06.blog.sohu.com/" target=_blank>玛希娅</a></li>
+</ul>
+
+<div class=revoArticlrMore><a href="http://blog.sohu.com/" target=_blank>更多相关文章&gt;&gt;</a></div></div></td>
+<td class="mbody r"></td></tr></tbody>
+<tfoot>
+<tr>
+<td class="mfooter lb"></td>
+<td class="mfooter b"></td>
+<td class="mfooter rb"></td></tr></tfoot></table></div></div>
+</div>
+<!--Ads模块-->
+<div  onmousedown="CA.q('blog_entry_left_ads');">
+
+</div>
+</div>
+
+
+<div class="revoArtRight">
+	
+    <div class="mod">
+    <div class="modFrame">
+    <table cellspacing="0" cellpadding="0" class="modTable">
+     <thead>
+                <tr>
+                  <td class="mheader lt"></td>
+                  <td class="mheader t"><div class="modHeader clearfix">
+                      <div style="" class="modIco"><img src="http://js5.pp.sohu.com.cn/ppp/blog/widgets_v_100427/entries/ico_widget.gif"></div>
+                      <div class="modTitle">日志正文</div>
+                    </div></td>
+                  <td class="mheader rt"></td>
+                </tr>
+              </thead>
+               <tbody>
+                <tr style="display: none;">
+                  <td class="mneck l"></td>
+                  <td class="mneck ec"><div class="modEditCon"></div></td>
+                  <td class="mneck r"></td>
+                </tr>
+                <tr>
+                <td class="mbody l"></td>
+                  <td class="mbody c">
+                  <div class="modCon profile-content">
+<div class="item">
+  <div class="item-top"></div>
+  <div id="entry">
+    <div class="item-title">
+      <h3>
+		<span style="float:left;">Nginx Windows配置(转)</span>
+        
+      </h3>
+      
+      
+      <div class="item-label">
+
+      <span class="itemOpr"><a onmousedown="CA.q('blog_entryview_share_topright');" href="javascript:void(0);" entryTitle="Nginx Windows配置(转)" data-shareType="31" data-title="#{@entryTitle}" data-url="/169642076.html" data-abstracts="#{#main-content@innerText<51}" data-ext="{v:'1',xpt:'#{$_xpt}'}" onclick="shareIt(this)" style="margin-right:10px;"><img src="http://js2.pp.sohu.com.cn/ppp/blog/styles_ppp/images/btn_share_s2.gif" alt="分享" title="分享" /></a></span><span id="itemId_169642076" class="itemOpr"></span>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="item-body">
+      
+      <div  class="item-title revoArtlabel"><span class="revoLeft">标签：
+        
+         <a href="http://tag.blog.sohu.com/Nginx/" target="_blank">Nginx</a>&nbsp;
+        
+        </span>
+        
+        <span class="revoRight">2011-03-28 11:58</span></div>
+      
+      <div class="item-content" id="main-content"> <div style="line-height:160%;font-size:14px;"><p>转自：http://koda.javaeye.com/blog/601249</p><p><br /></p><p>Nginx 是一个轻量级的高性能 Http WebServer，以事件驱动方式编写，因此相比 Apache 而言，Nginx 更加稳定、性能更好，而且配置简单，资源占用较低。
+<br />
+<br /><strong>1. 安装 Nginx</strong>
+<br />从 v0.7.52 开始，Nginx 开始发布 Windows 版本的 Nginx，你可以在其官方网站上面下载：http://nginx.net
+<br />下载后直接解压即可,这里解压缩到c:\nginx目录。
+<br />
+<br /><strong>2. 启动Nginx</strong>
+<br />命令行进入c:\nginx目录，运行nginx.exe，启动控制台窗口。默认启用80端口。用过Tomcat的人都希望能在控制台看到启动日志，nginx的日志却不得不查看logs目录下的相应log文件。
+<br />
+<br /><strong>3. 访问欢迎html页</strong>
+<br />在浏览器中访问http://localhost，可以看到默认的欢迎页.
+<br />
+<br /><strong>4. 停止Nginx</strong>
+<br />Ctrl+C没反应。于是关闭控制台窗口。可是再访问http://localhost依然有效。查看进程，发现nginx根本没有被关闭。因此如果想彻底关闭nginx，应该是
+<br /></p><div><div><div>Command代码&nbsp; <a title="收藏这段代码"></a></div></div><ol><li><span><span>nginx&nbsp;-s&nbsp;stop&nbsp;&nbsp;</span></span></li></ol></div><pre title="Nginx - Windows下Nginx基本安装和配置" style="display: none;">nginx -s stop</pre>
+<br />请参考官方文档<a href="http://nginx.org/en/docs/windows.html" target="_blank">nginx/Windows usage</a>
+<br />或者使用windows的taskkill命令：
+<br /><div><div><div>Command代码 <a title="收藏这段代码"></a></div></div><ol><li><span><span>taskkill&nbsp;/F&nbsp;/IM&nbsp;nginx.exe&nbsp;&gt;&nbsp;nul&nbsp;&nbsp;</span></span></li></ol></div><pre title="Nginx - Windows下Nginx基本安装和配置" style="display: none;">taskkill /F /IM nginx.exe &gt; nul</pre>
+<br />
+<br /><strong>5. Ngnix常用配置</strong>
+<br />Nginx的所有配置都默认使用conf/nginx.conf文件，其地位相当于apache的httpd.conf文件 
+。当运行nginx.exe暗含运行了nginx -c conf\nginx.conf. 
+如果想使用自己定义的conf文件如my.conf，命令为nginx -c conf\my.conf.
+<br />常用配置如下：
+<br /><div><div><div>Nginx.conf代码 <a title="收藏这段代码"></a></div></div><ol><li><span><span>http&nbsp;{&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;server&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;#<span>1</span><span>.侦听</span><span>80</span><span>端口&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;listen&nbsp;&nbsp;<span>80</span><span>;&nbsp;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;location&nbsp;/&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;<span>2</span><span>.&nbsp;默认主页目录在nginx安装目录的html子目录。&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;root&nbsp;&nbsp;&nbsp;html;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;&nbsp;index.html&nbsp;index.htm;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;<span>3</span><span>.&nbsp;没有索引页时，罗列文件和子目录&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;autoindex&nbsp;on;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;autoindex_exact_size&nbsp;on;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;autoindex_localtime&nbsp;on;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;<span>4</span><span>.指定虚拟目录&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;location&nbsp;/tshirt&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;alias&nbsp;D:\programs\Apache2\htdocs\tshirt;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;index.html&nbsp;index.htm;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;#&nbsp;<span>5</span><span>.虚拟主机www.emb.info配置&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;server&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;listen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>80</span><span>;&nbsp;&nbsp;</span></span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;server_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;www.emb.info;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;access_log&nbsp;emb.info/logs/access.log;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;location&nbsp;/&nbsp;{&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;index.html;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;root&nbsp;&nbsp;emb.info/htdocs;&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li><span>}&nbsp;&nbsp;</span></li></ol></div><pre title="Nginx - Windows下Nginx基本安装和配置" style="display: none;">http {
+  server {
+    #1.侦听80端口 
+    listen  80; 
+    location / {
+        # 2. 默认主页目录在nginx安装目录的html子目录。
+        root   html;
+        index  index.html index.htm;
+        # 3. 没有索引页时，罗列文件和子目录
+        autoindex on;
+        autoindex_exact_size on;
+        autoindex_localtime on;
+    }
+    # 4.指定虚拟目录
+    location /tshirt {
+	alias D:\programs\Apache2\htdocs\tshirt;
+	index index.html index.htm;
+    }
+  }
+  # 5.虚拟主机www.emb.info配置
+  server {
+    listen          80;
+    server_name     www.emb.info;
+    access_log emb.info/logs/access.log;
+    location / {
+      index index.html;
+      root  emb.info/htdocs;
+    }
+  }
+}</pre>
+<br />
+<br />小提示：
+<br />运行nginx -V可以查看该Win32平台编译版支持哪些模块。我这里的结果为：
+<br /><div><div><div>Log代码 <a title="收藏这段代码"></a></div></div><ol><li><span><span>nginx&nbsp;version:&nbsp;nginx/</span><span>0.7</span><span>.</span><span>65</span><span>&nbsp;&nbsp;</span></span></li><li><span>TLS&nbsp;SNI&nbsp;support&nbsp;enabled&nbsp;&nbsp;</span></li><li><span>configure&nbsp;arguments:&nbsp;&nbsp;&nbsp;</span></li><li><span>--builddir=objs.msvc8&nbsp;&nbsp;&nbsp;</span></li><li><span>--crossbuild=win32&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-debug&nbsp;--prefix=&nbsp;&nbsp;&nbsp;</span></li><li><span>--conf-path=conf/nginx.conf&nbsp;&nbsp;&nbsp;</span></li><li><span>--pid-path=logs/nginx.pid&nbsp;&nbsp;&nbsp;</span></li><li><span>--http-log-path=logs/access.log&nbsp;&nbsp;&nbsp;</span></li><li><span>--error-log-path=logs/error.log&nbsp;&nbsp;&nbsp;</span></li><li><span>--sbin-path=nginx.exe&nbsp;&nbsp;&nbsp;</span></li><li><span>--http-client-body-temp-path=temp/client_body_temp&nbsp;&nbsp;&nbsp;</span></li><li><span>--http-proxy-temp-path=temp/proxy_temp&nbsp;&nbsp;&nbsp;</span></li><li><span>--http-fastcgi-temp-path=temp/fastcgi_temp&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-cc-opt=-DFD_SETSIZE=<span>1024</span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span>--with-pcre=objs.msvc8/lib/pcre-<span>7.9</span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span>--with-openssl=objs.msvc8/lib/openssl-<span>0.9</span><span>.8k&nbsp;&nbsp;&nbsp;</span></span></li><li><span>--with-openssl-opt=enable-tlsext&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-zlib=objs.msvc8/lib/zlib-<span>1.2</span><span>.</span><span>3</span><span>&nbsp;&nbsp;&nbsp;</span></span></li><li><span>--with-select_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-http_ssl_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-http_realip_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-http_addition_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-http_sub_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-http_dav_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-http_stub_status_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-http_flv_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-http_gzip_static_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-http_random_index_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-http_secure_link_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-mail&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-mail_ssl_module&nbsp;&nbsp;&nbsp;</span></li><li><span>--with-ipv6&nbsp;&nbsp;</span></li></ol></div><pre title="Nginx - Windows下Nginx基本安装和配置" style="display: none;">nginx version: nginx/0.7.65
+TLS SNI support enabled
+configure arguments: 
+--builddir=objs.msvc8 
+--crossbuild=win32 
+--with-debug --prefix= 
+--conf-path=conf/nginx.conf 
+--pid-path=logs/nginx.pid 
+--http-log-path=logs/access.log 
+--error-log-path=logs/error.log 
+--sbin-path=nginx.exe 
+--http-client-body-temp-path=temp/client_body_temp 
+--http-proxy-temp-path=temp/proxy_temp 
+--http-fastcgi-temp-path=temp/fastcgi_temp 
+--with-cc-opt=-DFD_SETSIZE=1024 
+--with-pcre=objs.msvc8/lib/pcre-7.9 
+--with-openssl=objs.msvc8/lib/openssl-0.9.8k 
+--with-openssl-opt=enable-tlsext 
+--with-zlib=objs.msvc8/lib/zlib-1.2.3 
+--with-select_module 
+--with-http_ssl_module 
+--with-http_realip_module 
+--with-http_addition_module 
+--with-http_sub_module 
+--with-http_dav_module 
+--with-http_stub_status_module 
+--with-http_flv_module 
+--with-http_gzip_static_module 
+--with-http_random_index_module 
+--with-http_secure_link_module 
+--with-mail 
+--with-mail_ssl_module 
+--with-ipv6
+</pre>
+<br />显然，最经常用的memcache, rewrite模块都没在其中，因此该win32编译版本仅能供基本开发测试使用，对于产品平台，应该重新编译自己想要的win32版本，或者在linux下使用更方便。
+</div>
+			<div style="_width:92px;margin-top: 15px;float: right; height: 23px; border: #dfac63 1px solid; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;">
+			<a style="line-height: 22px; height: 22px; padding: 0 8px; text-align: center; color: #000; display: block; border: #fdf7dd 1px solid; background: #f8e888; border-bottom: 0; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; text-decoration: none;"
+				href="http://grim1980.i.sohu.com/blog/view/169642076.htm" target="_blank">体验新版博客</a>
+			</div>
+
+			
+
+			<div class="clear"></div>
+       <div class="pn_na">
+                   <div class="previous">
+                   
+                   <div class="previous_l"></div>
+                   
+                   <div class="previous_txt">上一篇：</div>
+                   <div class="previous_txt"><a onmousedown="CA.q('blog_entryview_previous');" href="/170203522.html"> T-SQL语句：根据时间排序读取唯一的前n条记录</a>  </div>
+         </div>
+                   
+                   <div class="next">
+                   <div class="next_txt">下一篇：</div>
+                   <div class="next_txt"><a onmousedown="CA.q('blog_entryview_next');" href="/169206874.html">文件属性中的创建时间、修改时间、访问时间(转) </a></div>
+                  
+                   <div class="next_r"></div>
+                   
+                   </div>
+         </div>
+     
+       <div class="clear"></div>
+      </div>
+      <div class="item-info">
+      <a onmousedown="CA.q('blog_entryview_share_bottom');" href="javascript:void(0);" entryTitle="Nginx Windows配置(转)" data-shareType="31" data-title="#{@entryTitle}" data-url="/169642076.html" data-abstracts="#{#main-content@innerText<51}" data-ext="{v:'1',xpt:'#{$_xpt}'}" onclick="shareIt(this)"><img align="absmiddle" src="http://js2.pp.sohu.com.cn/ppp/images/icons/ico_share2.gif" alt="分享" title="分享" /> 分享</a>&nbsp;|&nbsp; 
+	  	评论&nbsp;(<span id="discusscount">0</span>)&nbsp;|&nbsp;
+		阅读&nbsp;(<span id="itemReadCount_169642076" class="itemReadCount">?</span>) &nbsp;|&nbsp;
+		<a href="#" onclick="Element.toggle('folder0_f'); return false;">固定链接</a>&nbsp;|&nbsp;
+        
+        发表于 11:58 
+		</div>
+      
+    </div>
+
+    <div id="folder0_f" style="display:none;" class="item-infoBox"><span class="item-infoBoxTit"><strong>提示：</strong>“固定链接”为您显示此篇文章的固定不变链接，如果您有还有疑问<a href="/help.html">请点击帮助</a></span><br />
+      链接地址：<a target="_blank" href="/169642076.html">/169642076.html</a> <a href="javascript:var url=window.clipboardData.setData('text','/169642076.html');alert('地址已保存到剪切板。');">复制此地址</a><br />
+    </div>
+  </div>
+  <div class="blog-article-ad-wrapper"></div>
+  
+  <div id="entrycommentlist">
+    <div id="messageWrapper"></div>
+    <div class="item-title">
+      <h3>评论&nbsp;&nbsp;&nbsp;<img align="absmiddle" class="icon" src="http://js2.pp.sohu.com.cn/ppp/images/icons/ico_question.gif"/>&nbsp;&nbsp;<a href=" http://admin.blog.sohu.com/85634919.html" target=”_blank” style="font-weight: normal;"  onmousedown="CA.a('entry_commemt_first');">想第一时间抢沙发么？</a></h3>
+      <div class="clear"></div>
+    </div>
+    
+   <script type='text/javascript'>
+var sogou_param = new Array();
+sogou_param["pid"]  = 'sogouwenda';
+sogou_param["ct"]  = 'kwd';
+sogou_param["fmt"]  = 'h_kwd';
+sogou_param["dn"]  = '5';
+sogou_param["iw"]   = '728';
+sogou_param["ih"]   = '15';
+sogou_param["fs"] = '12';
+sogou_param["c_bo"] = '0055E5';
+sogou_param["c_bg"] = 'dddddd';
+sogou_param["c_fg"] = '000000';
+sogou_param["tdw"] = '';
+sogou_param["charset"] = 'gb2312';
+</script>
+<script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/lu.js'></script>
+
+    <div id="commentlist"></div>
+    <div class="item-info">
+      <div id="pageText"></div>
+    </div>
+
+  </div>
+  <div id="tipBoxDiv"></div>
+  <!-- script src="http://s3.suc.itc.cn/app/tophoto/addimg.v.20130108.js" charset="utf-8"></script -->
+  <script type="text/javascript">
+var entryId = '169642076';
+var blogId = '29343169';
+
+var pageTextContainer = $('pageText');
+var curPage = 1;
+var itemPerPage = 20;
+var startPage = 1;
+var totalCount = 0;
+var chagePageAction = 'chagePage';
+var jumpAnchor = false;
+var noCache = (location.href.indexOf('?') > 0);
+chagePage();
+
+Entries.insertItemOpr('view');
+Entries.insertItemReadCount('view');
+</script>
+  <div id="errormsgWrapper"></div>
+  <div>
+    
+    
+      
+
+<a name="commentbox" id="commentbox"></a>
+<div class="info-content" id="commentForm">
+  <form name="commentForm" method="post" action="/page/comment.do">
+    <input type="hidden" name="entryId" value="169642076" />
+    <input type="hidden" name="blogId" value="29343169" />
+	<input type="hidden" name="replytopassport"/>
+	<input type="hidden" name="replytodiscussid"/>
+    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+	  <tr>
+	  	<td>&nbsp;</td>
+		<td height="30" valign="bottom">
+		
+		</td>
+	  </tr>
+      <tr>
+        <td valign="top" style="width: 65px;"><label for="commentContent">评论内容:</label></td>
+        <td><textarea id="commentContent" name="commentContent" class="text" style="width:330px;height:140px;float:left;"></textarea>
+		</div></td>
+      </tr>
+	  <tr>
+        <td valign="top">表　　情:</td>
+        <td>
+<script type="text/javascript">
+document.write('<scr'+'ipt type="text/javascript" src="'+ HMP + 'emote.js"></scr'+'ipt>');
+</script>
+<div id="emotionBox">
+加载中...
+</div>
+<script type="text/javascript">
+var commentContentEl = null;
+function addEmote(ubb) {
+	if (!commentContentEl) commentContentEl = $('commentContent');
+	commentContentEl.value += ' ' + ubb; 
+	commentContentEl.focus();
+}
+Emote.init({parent: 'emotionBox', callback: addEmote, stat: 'reply'});
+</script>
+        </td>
+	  </tr>
+      <tr>
+        <td class="redfont" id="c_codeTextBox"></td>
+        <td id="c_codeInputBox"></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>
+        <input type="hidden" name="m" value="save" />
+    	<input type="button" id="commentSubmit" value="发 表" class="button-submit" onclick="checkCForm()"/>
+    	<p style="line-height:20px;color:#666">请各位遵纪守法并注意语言文明</p>
+		 </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<script type="text/javascript">
+var commentPermission = '2';
+setCPShow();
+
+</script>
+    
+    
+  </div>
+  <div class="item-bottom"></div>
+</div>
+</div>
+</td>
+ <td class="mbody r"></td>
+</tr>
+</tbody>
+ <tfoot>
+        <tr>
+          <td class="mfooter lb"></td>
+          <td class="mfooter b"></td>
+          <td class="mfooter rb"></td>
+        </tr>
+</tfoot>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="content-bottom"></div>
+<script type="text/javascript">
+var isblanked = false;
+var hidimg = "http://photo.pic.sohu.com/images/oldblog/person/11111.gif";
+var nick = "grim1980";
+var showurl = "http://grim1980.i.sohu.com";
+var tags = '';
+
+tags = 'Nginx';
+
+</script>
+
+<link type="text/css" rel="stylesheet" href="http://zt.blog.sohu.com/upload/cj09081817/blog_w.css"> <style> *html .fixed-bottom {position:absolute;bottom:auto;top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-parseInt(this.currentStyle.bottom)));}  #popup{ position:fixed; _position:absolute; display:none; } </style> <script> function wmh_linkClick() { var stat = new Image; stat.src = "http://pv.mini.sohu.com/blog.gif?t=" + new Date().getTime(); } </script>   <div id=popup> <div class=b_w> <div class=bar> <div class=bar01><img alt=博客推荐 src="http://zt.blog.sohu.com/upload/cj09081817/images/bt_01.gif"></div> <div class=bar02><a onMouseDown="CA.q('popup_close')" href="javascript:void(0)"><img id=closepopup src="http://zt.blog.sohu.com/upload/cj09081817/images/b_x.gif"></a></div></div> <div class=content_1> <div class=content_2 onMouseDown="CA.q('popup_tu')"><a href="http://jishaochengvip.blog.sohu.com/268269838.html" target=_blank><img src="http://i0.itc.cn/20130619/a9c_1f2ffc81_4086_adc2_097c_e5acd4b9bd5f_1.jpg"alt="画家笔下的毛泽东" width="110" height="82" border="0"></a><br> <a href="http://jishaochengvip.blog.sohu.com/268269838.html" target=_blank> 画家笔下的毛泽东</a></div> <div class=content_3> <p><a onMouseDown="CA.q('popup_toutiao')" href="http://blog.sohu.com/" target=_blank>习近平的"整风"让官员不安<a></p> <ul onMouseDown="CA.q('popup_list1')"> <li>·<A title="" href="http://liyinheblog.blog.sohu.com/268528637.html" target="_blank">女性为何有“大叔控”情结 </A></li> <li>·<a href="http://liushan.blog.sohu.com/268551173.html" target=_blank>最赚钱的银行业突然没钱了</a></li> <li>·<a href="http://cctvxuyili.blog.sohu.com/268555480.html" target=_blank>四大行联手逼央行降准背后 </a></li> <li>·<a href="http://leeyuezhong.blog.sohu.com/268087161.html" target=_blank>与西班牙骑士一起露营(图)</a></li> </ul> </div></div>   <div class=content_4> <ul onMouseDown="CA.q('popup_list2')">  <li>·<a href="http://marcia06.blog.sohu.com/268591419.html" target=_blank>父母怎样得到孩子尊重 </a>   <a href="http://cuicandexingkong.blog.sohu.com/268374846.html" target=_blank>用筷子掌握火候的酱肥肠</a></li>   <li>·<a href="http://liudaisy88.blog.sohu.com/268374310.html" target=_blank>世界上最美妙的下饭菜</a>  <a href="http://maymayas.blog.sohu.com/268672184.html" target=_blank>露肩透视套装显性感妩媚</a></li>   </ul> </div></div></div><!-- popup ad end --><script type="text/javascript" src="http://js2.pp.sohu.com.cn/ppp/bms/bms.popup.v.5.js"></script> <script> var popupAd = new bms.popup(); popupAd.init('popup','closepopup',false,120,function(){CA.q('popup_show')}); setTimeout(popupAd.popupAd,2000);  //window.onload=function(){setTimeout(popupAd.popupAd,500)}; </script> <script type="text/javascript"> (function(){ $(function(){ $('#popup .action i.btn-draw').hover(function(){ $(this).addClass('btn-draw-hover'); },function(){ $(this).removeClass('btn-draw-hover');  });  $('#popup .action i.btn-exchange').hover(function(){ $(this).addClass('btn-exchange-hover'); },function(){ $(this).removeClass('btn-exchange-hover');  });   }); })(jQuery)  </script>
+
+                </div>
+            </div>
+			<div class="clear"></div>
+		</div>
+		</div>
+		
+<div id="footer">
+  <div id="innerFooter">
+	<div id="contact"> <a href="http://blog.sohu.com/help.html" target="_blank" rel="nofollow">帮助</a> - <a href="http://sohucallcenter.blog.sohu.com/" target="_blank" rel="nofollow">客服中心</a> - <a href="http://q.sohu.com/group/23063" target="_blank" rel="nofollow">意见建议</a> - <a href="mailto:jubao@contact.sohu.com">举报</a> - <a href="http://blog.sohu.com" target="_blank">搜狐博客</a> - <a href="http://www.sohu.com" target="_blank">搜狐首页</a> - <a href="http://blog.sohu.com/roll/" target="_blank">全部博文</a> - <a href="http://roll.sohu.com" target="_blank">新闻</a>
+<script type="text/javascript">
+function writeReport() {
+	if (typeof entryId == 'undefined' || !entryId) return;
+	var url = 'http://act.blog.sohu.com/plus/impeach.jsp?rp='+escape(location.href)+'&p='+escape(getP());
+	var str = '';
+	str += ' | <a href="'+ url +'" target="_blank"  rel="nofollow">举报不良信息</a>';
+	document.write(str);
+}
+writeReport();
+</script>
+	</div>
+	<div id="copyright">Copyright &copy; 2013 Sohu.com Inc. All rights reserved. 搜狐公司 版权所有 </div>
+  </div>
+</div>
+<script src="http://js.sohu.com/mail/pv/pv_v206.js" type="text/javascript"></script>
+
+
+<!-- sohu im -->
+
+<!-- sohu im end -->
+<script language="javascript">
+var  _wratingId = '860010-0601020100';
+if(_wratingId !=null){
+document.write('<scr'+'ipt type="text/javascript" src="http://js.sohu.com/a1.js"></scr'+'ipt>');
+}
+</script>
+<script language="javascript">
+if(_wratingId !=null){
+document.write('<scr'+'ipt type="text/javascript">');
+document.write('var vjAcc="'+_wratingId+'";');
+document.write('var wrUrl="http://sohu.wrating.com/";');
+document.write('try{vjTrack();}catch(e){}');
+document.write('</scr'+'ipt>');
+}
+</script>
+<script type="text/ecmascript">
+function checkLogonUserCount() {
+	if (getCookie('lastdomain') && getCookie('lastdomain') != '') {
+		var _lastdomain = getCookie('lastdomain').split('|')[1];
+		if (_lastdomain) {
+			var _url = 'http://bgt.blog.sohu.com/blogping.gif?sohupp='+ _lastdomain;
+			_url += '&refer='+ escape(document.referrer);
+			_url += '&c='+ timeStamp();
+			if (isLogin()) {
+				_url += '&logon='+ getXP();
+			}
+			document.write('<img src="'+ _url +'" />');
+		}
+	}
+}
+checkLogonUserCount();
+</script>
+
+	</div>
+</div>
+<script type="text/javascript">
+Starter.start();
+</script>
+
+<script type="text/javascript">
+document.write('<scr'+'ipt type="text/javascript" src="'+SP+'counter.js"></scr'+'ipt>');
+</script>
+
+
+<script type="text/javascript">
+if($('errormsgWrapper')){
+	var err = Info.readInfo(true);
+	if(err){
+		var str = '<div id="errormsg" style="background-color: #ffffe1; border: 2px solid #ccc; color: red; padding: 10px; padding-left: 30px; margin: 20px; background-image:url(http://js.pp.sohu.com/ppp/blog/styles/images/ico_error.gif); background-position: 7px 10px; background-repeat: no-repeat;">';
+		str += err;
+		str += '</div>';
+		$('errormsgWrapper').innerHTML = str;
+		try{flashErr('errormsg');}catch(e){}
+	}
+}
+if($('messageWrapper')){
+	var msg = Info.readInfo(false);
+	if(msg){
+		var str = '<div id="message" style="background-color: #ffffe1; color: 6D6D6D; border: 2px solid #ccc; padding: 10px; padding-left: 30px; margin: 20px; background-image:url(http://js.pp.sohu.com/ppp/blog/styles/images/ico_ok.gif); background-position: 7px 10px; background-repeat: no-repeat;">';
+		str += msg;
+		str += '</div>';
+		$('messageWrapper').innerHTML = str;
+		try{flashMsg('message');}catch(e){}
+	}
+}
+</script>
+
+<script type="text/javascript" charset="utf-8" src="http://s.suc.itc.cn/loader.action?key=ppdialog"></script>
+</body>
+</html>

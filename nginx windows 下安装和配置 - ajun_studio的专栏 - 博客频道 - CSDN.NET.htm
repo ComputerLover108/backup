@@ -1,0 +1,626 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>nginx windows 下安装和配置 - ajun_studio的专栏 - 博客频道 - CSDN.NET</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="下载地址：http://nginx.org/download/nginx-1.2.4.zip下载后直接解压到你的硬盘上，我的是d:\nginx启动nginxcd d:cd nginx-1.2.4start nginx查看任务任务管理器里面会有nginx的进程在浏览器输入http://127.0.0.1 此时会出现nginx的欢迎界面，说明启动nginx成功。We" />
+<script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+<link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/dark1/css/style.css?v=1.1" />
+<link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/ajun_studio/rss/list" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/nobg_code.css" />
+</head>
+<body>
+<script src="http://csdnimg.cn/pubnav/js/pub_topnav_2011.js"type="text/javascript"></script>
+
+<div id="container">
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h1><a href="/ajun_studio">ajun_studio的专栏</a></h1>
+            <h2>--------------------得意淡然，失意坦然；喜而不狂，忧而不伤--------------------</h2>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg"></div>
+    <div class="navigator">
+        <ul>
+            <li id="btnContents"><a href="/ajun_studio?viewmode=contents"><span><img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+            <li id="btnView"><a href="/ajun_studio?viewmode=list"><span><img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+            <li id="btnRss"><a href="/ajun_studio/rss/list"><span><img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>
+</ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "ajun_studio";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/ajun_studio";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";
+</script>
+
+<div id="body">
+<div id="main">
+<div class="main">
+<div class="notice"> 
+
+<a href="http://surveies.csdn.net/survey/comein/590" target="_blank">
+<font color=red>CSDN博客第三方发布工具有奖调查
+   </font></a>
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/9122055" target="_blank"><font color=blue>CSDN目录树调整公告
+</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://ocow.csdn.net/
+"target="_blank">
+<font color=red>低价抢购开源中国论坛门票
+
+
+ </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/9128451"target="_blank">
+<font color=red>CSDN博客第三期最佳移动开发博主评选
+
+ </font></a>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://www.csdn.net/article/2013-06-18/2815824"target="_blank">
+<font color=blue>专访沈逸：技术，不存在有前途没前途之分 
+ </font></a>
+
+
+
+
+</div>
+<div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/ajun_studio/article/details/8066550">
+        nginx windows 下安装和配置
+        </a></span>
+    </h3>
+</div>
+
+        
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/ajun_studio/article/category/1097640">nginx</a> 
+        </span>
+    <span class="link_postdate">2012-10-13 09:07</span>
+    <span class="link_view" title="阅读次数">716人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments">评论</a>(2)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle('nginx windows 下安装和配置','8066550');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:report(8066550,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href='http://blog.csdn.net/tag/details.html?tag=nginx' target=_blank>nginx</a><a href='http://blog.csdn.net/tag/details.html?tag=windows' target=_blank>windows</a><a href='http://blog.csdn.net/tag/details.html?tag=server' target=_blank>server</a><a href='http://blog.csdn.net/tag/details.html?tag=ssl' target=_blank>ssl</a><a href='http://blog.csdn.net/tag/details.html?tag=kill' target=_blank>kill</a><a href='http://blog.csdn.net/tag/details.html?tag=protocols' target=_blank>protocols</a></div>
+
+
+    
+<div id="article_content" class="article_content">
+
+<p>下载地址：http://nginx.org/download/nginx-1.2.4.zip</p>
+<p>下载后直接解压到你的硬盘上，我的是d:\nginx</p>
+<p>启动nginx</p>
+<p>cd d:</p>
+<p>cd nginx-1.2.4</p>
+<p>start nginx</p>
+<p>查看任务任务管理器里面会有nginx的进程</p>
+<p>在浏览器输入http://127.0.0.1 此时会出现nginx的欢迎界面，说明启动nginx成功。</p>
+<p><span style="font-family:Tahoma,Verdana,Arial,sans-serif; font-size:14px"></span></p>
+<h1>Welcome to nginx!</h1>
+<p></p>
+<p>If you see this page, the nginx web server is successfully installed and working. Further configuration is required.</p>
+<p>For online documentation and support please refer to&nbsp;<a href="http://nginx.org/">nginx.org</a>.<br>
+Commercial support is available at&nbsp;<a href="http://nginx.com/">nginx.com</a>.</p>
+<p><em>Thank you for using nginx.</em></p>
+<span style="color:rgb(17,17,17); font-family:verdana,arial; font-size:13px; line-height:23px"></span>
+<p><span style="color:rgb(17,17,17); font-family:verdana,arial; font-size:13px; line-height:23px">其他操作：</span></p>
+nginx -s stop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 停止nginx<br style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px">
+nginx -s reload&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 重新加载配置文件<br style="margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:0px">
+nginx -s quit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 退出nginx
+<p>配置文件：</p>
+<p><pre name="code" class="plain">#user  nobody;
+worker_processes  1;#启动的线程数：一本内核的数目*2
+
+</pre><pre name="code" class="plain">#错误的位置和级别
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;#pid进程文件的位置
+
+
+events {
+    worker_connections  1024;#每个进程的最大连接数
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    #nginx日志格式定义，在下面可以进行引用
+    #log_format  main  '$remote_addr - $remote_user [$time_local] &quot;$request&quot; '
+    #                  '$status $body_bytes_sent &quot;$http_referer&quot; '
+    #                  '&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;';
+
+    #access_log  logs/access.log  main;#日志路径
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout  65;#请求时间
+
+    #gzip  on;开启gzip压缩
+    #server为设置的虚拟机，可以设多个
+    server {
+        listen       80;#监听的端口
+        server_name  localhost;#监听的域名
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;#该虚拟机日志存放的位置
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+
+        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+        #
+        #location ~ \.php$ {
+        #    proxy_pass   http://127.0.0.1;
+        #}
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        #location ~ \.php$ {
+        #    root           html;
+        #    fastcgi_pass   127.0.0.1:9000;
+        #    fastcgi_index  index.php;
+        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+        #    include        fastcgi_params;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #    deny  all;
+        #}
+    }
+
+
+    # another virtual host using mix of IP-, name-, and port-based configuration
+    #
+    #server {
+    #    listen       8000;
+    #    listen       somename:8080;
+    #    server_name  somename  alias  another.alias;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+
+    # HTTPS server
+    #
+    #server {
+    #    listen       443;
+    #    server_name  localhost;
+
+    #    ssl                  on;
+    #    ssl_certificate      cert.pem;
+    #    ssl_certificate_key  cert.key;
+
+    #    ssl_session_timeout  5m;
+
+    #    ssl_protocols  SSLv2 SSLv3 TLSv1;
+    #    ssl_ciphers  HIGH:!aNULL:!MD5;
+    #    ssl_prefer_server_ciphers   on;
+
+    #    location / {
+    #        root   html;
+    #        index  index.html index.htm;
+    #    }
+    #}
+
+}
+</pre><br>
+<br>
+</p>
+<p><span style="color:rgb(17,17,17); font-family:verdana,arial; font-size:13px; line-height:23px"><br>
+</span></p>
+<p><span style="color:rgb(17,17,17); font-family:verdana,arial; font-size:13px; line-height:23px"><br>
+</span></p>
+<p><span style="color:rgb(17,17,17); font-family:verdana,arial; font-size:13px; line-height:23px">linux下：</span></p>
+<p><span style="color:rgb(17,17,17); font-family:verdana,arial; font-size:13px; line-height:23px">启动nginx：</span></p>
+<p><span style="font-family:verdana,arial; font-size:12px; color:#111111"><span style="line-height:23px">/安装目录/nginx -c 配置文件的目录，-c用于加载配置文件，默认是在 安装目录下conf/nginx.conf</span></span></p>
+<p><span style="font-family:verdana,arial; font-size:12px; color:#111111"><span style="line-height:23px">推出或者停止nginx：</span></span></p>
+<p><span style="font-family:verdana,arial; font-size:12px; color:#111111"><span style="line-height:23px">强制停止：kill -9 nginx</span></span></p>
+<p><span style="font-family:verdana,arial; font-size:12px; color:#111111"><span style="line-height:23px">从容停止：kill -QUIT `cat nginx pid所在目录`</span></span></p>
+<p><span style="font-family:verdana,arial; font-size:12px; color:#111111"><span style="line-height:23px">快速停止：kill -TERM &nbsp;<span style="color:rgb(17,17,17); font-family:verdana,arial; line-height:23px; font-size:12px">`cat nginx pid所在目录`</span>或kill -INT &nbsp;<span style="color:rgb(17,17,17); font-family:verdana,arial; line-height:23px; font-size:12px">`cat
+ nginx pid所在目录`</span></span></span></p>
+<p><span style="font-family:verdana,arial; font-size:12px; color:#111111"><span style="line-height:23px"><span style="color:rgb(17,17,17); font-family:verdana,arial; line-height:23px; font-size:12px">平滑重启：kill -HUA
+<span style="color:rgb(17,17,17); font-family:verdana,arial; line-height:23px; font-size:12px">
+`cat nginx pid所在目录`（平滑重启需检查配置文件是否正确：<span style="color:rgb(17,17,17); font-family:verdana,arial; line-height:23px; font-size:12px">/安装目录/nginx&nbsp;</span>-t -c）</span></span></span></span></p>
+<p><span style="color:rgb(17,17,17); font-family:verdana,arial; font-size:13px; line-height:23px"><br>
+</span></p>
+<p><span style="color:rgb(17,17,17); font-family:verdana,arial; font-size:13px; line-height:23px"><br>
+</span></p>
+
+</div>
+
+<div class="share_buttons" id="sharePanel"></div>
+<!--192.168.100.34-->
+<div class="article_next_prev">
+    <li class="prev_article"><span>上一篇：</span><a href="/ajun_studio/article/details/8062356">nginx 设置本地浏览器缓存文件</a></li>
+    <li class="next_article"><span>下一篇：</span><a href="/ajun_studio/article/details/8074642">mysql 性能优化的几点建议</a></li>
+</div>
+
+
+            <div id="digg" ArticleId="8066550">
+            <dl id="btnDigg" class="digg digg_disable">
+                <dt>顶</dt>
+                <dd>1</dd>
+            </dl>
+            <dl id="btnBury" class="digg digg_disable">
+                <dt>踩</dt>
+                <dd>0</dd>
+            </dl>
+        </div>
+
+</div>
+<div id="ad_cen">
+<script type="text/javascript" >BAIDU_CLB_SLOT_ID = "117306";</script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/o.js"></script>
+</div>
+<script type="text/javascript">
+    //new Ad(4, 'ad_cen');
+</script>
+<div id="comment_title" class="panel_head">查看评论<a name="comments"></a></div>
+<div id="comment_list"></div>
+<div id="comment_bar"></div>
+<div id="comment_form"></div>
+<div class="announce">* 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '8066550';
+    var commentscount = 2;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+<div id="ad_bot"></div>
+<script type="text/javascript">
+    new Ad(5, 'ad_bot');
+</script>
+<div id="report_dialog"></div>
+
+<div id="d-top" style="display:none;">
+<a id="d-top-a" href="#" title="回到顶部">
+<img src="http://static.blog.csdn.net/images/top.png" alt="TOP" /></a>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var d_top=$('#d-top');
+        document.onscroll=function(){
+            var scrTop=(document.body.scrollTop||document.documentElement.scrollTop);
+            if(scrTop>500){
+                d_top.show();
+            }else{
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function(){
+            scrollTo(0,0);
+            this.blur();
+            return false;
+        });
+    });
+</script>
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div id="side">
+<div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/ajun_studio" target="_blank">
+    <img src="http://avatar.csdn.net/5/F/A/1_ajun_studio.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/ajun_studio" class="user_name" target="_blank">ajun_studio</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+<a href="javascript:void(0);" class="letter" onclick="loginto(1)" title="[发私信]"></a>
+</div>
+<div id="blog_medal">
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>56903次</span></li>
+    <li>积分：<span>1327分</span></li>
+    <li>排名：<span>第7330名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>63篇</span></li>
+    <li>转载：<span>5篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>67条</span></li>
+</ul>
+</ul>
+</div>
+
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="submit" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/824783">Flex</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/824786">Hibernate</a><span>(5)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/824782">Java</a><span>(34)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/824787">redis</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/824785">Spring</a><span>(13)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/824784">struts</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/833284">设计</a><span>(17)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/853218">javascript</a><span>(7)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/856362">Sql</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/857023">lucene</a><span>(3)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/859239">消息中间件</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/875972">linux</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/880595">memcached</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/888001">程序人生</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/1079893">cache</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/1191937">tuscany sca java</a><span>(5)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/ajun_studio/article/category/1097640">nginx</a><span>(4)</span>
+</li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="http://blog.csdn.net/ajun_studio/article/month/2012/10">2012年10月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/ajun_studio/article/month/2012/07">2012年07月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/ajun_studio/article/month/2012/06">2012年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/ajun_studio/article/month/2012/04">2012年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/ajun_studio/article/month/2012/03">2012年03月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/ajun_studio/article/month/2012/02">2012年02月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/ajun_studio/article/month/2011/11">2011年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/ajun_studio/article/month/2011/10">2011年10月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/ajun_studio/article/month/2011/09">2011年09月</a><span>(18)</span></li><li><a href="http://blog.csdn.net/ajun_studio/article/month/2011/08">2011年08月</a><span>(14)</span></li><li><a href="http://blog.csdn.net/ajun_studio/article/month/2011/07">2011年07月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/ajun_studio/article/month/2011/05">2011年05月</a><span>(4)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head"><span>阅读排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/ajun_studio/article/details/6633065" title="jquery Ajax 跨域调用(jsonp)">jquery Ajax 跨域调用(jsonp)</a><span>(3540)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6745791" title="对memcached使用的总结和使用场景">对memcached使用的总结和使用场景</a><span>(3232)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6637229" title="jquery 清除表单数据 clear from data">jquery 清除表单数据 clear from data</a><span>(3227)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6746877" title="Memcached管理与监控工具----MemAdmin">Memcached管理与监控工具----MemAdmin</a><span>(3210)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6932185" title="利用freemarker 静态化网页">利用freemarker 静态化网页</a><span>(2853)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6807181" title="利用cglib给javabean动态添加属性">利用cglib给javabean动态添加属性</a><span>(2497)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6698147" title="redis的简单使用和介绍 linux(centos 5.4) redis install">redis的简单使用和介绍 linux(centos 5.4) redis install</a><span>(2110)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6728358" title="jquery 图片延迟加载的实现">jquery 图片延迟加载的实现</a><span>(1951)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6876109" title="利用java filter 实现业务异常拦截 跳转到错误信息提示页面">利用java filter 实现业务异常拦截 跳转到错误信息提示页面</a><span>(1816)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6639306" title="图片上传系统 common-fileUpload">图片上传系统 common-fileUpload</a><span>(1638)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/ajun_studio/article/details/6932185" title="利用freemarker 静态化网页">利用freemarker 静态化网页</a><span>(9)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6648870" title="基于Lucene的搜索系统 同时使用Paoding进行中文分词 一">基于Lucene的搜索系统 同时使用Paoding进行中文分词 一</a><span>(7)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6639306" title="图片上传系统 common-fileUpload">图片上传系统 common-fileUpload</a><span>(7)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6728358" title="jquery 图片延迟加载的实现">jquery 图片延迟加载的实现</a><span>(6)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6745791" title="对memcached使用的总结和使用场景">对memcached使用的总结和使用场景</a><span>(4)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6831241" title="自己动手实现IOC和MVC-----目录">自己动手实现IOC和MVC-----目录</a><span>(4)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6829068" title="自己动手实现IOC和MVC（一）">自己动手实现IOC和MVC（一）</a><span>(4)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6633065" title="jquery Ajax 跨域调用(jsonp)">jquery Ajax 跨域调用(jsonp)</a><span>(3)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6831198" title="自己动手实现IOC和MVC（八）">自己动手实现IOC和MVC（八）</a><span>(3)</span>
+</li>
+<li>
+<a href="/ajun_studio/article/details/6807181" title="利用cglib给javabean动态添加属性">利用cglib给javabean动态添加属性</a><span>(3)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend"></ul>
+</div>
+<script type="text/javascript">
+ new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+    <a href="/ajun_studio/article/details/6932185#comments">利用freemarker 静态化网页</a>
+    <p style="margin:0px;"><a href="/MakeMerry" class="user_name">MakeMerry</a>:
+想学习一下，能把项目包发出来研究下吗，谢谢，邮箱：624222335@qq.com
+    </p>
+    </li>
+    <li>
+    <a href="/ajun_studio/article/details/8066550#comments">nginx windows 下安装和配置</a>
+    <p style="margin:0px;"><a href="/ajun_studio" class="user_name">ajun_studio</a>:
+@sarahuan:conf下
+    </p>
+    </li>
+    <li>
+    <a href="/ajun_studio/article/details/6728358#comments">jquery 图片延迟加载的实现</a>
+    <p style="margin:0px;"><a href="/xgf5206" class="user_name">xgf5206</a>:
+用了这个 图片是外链的 结果提示XMLHttpRequest cannot load http://...
+    </p>
+    </li>
+    <li>
+    <a href="/ajun_studio/article/details/6932185#comments">利用freemarker 静态化网页</a>
+    <p style="margin:0px;"><a href="/fengdongming168" class="user_name">fengdongming168</a>:
+想研究下，能把项目包发出来研究下吗，谢谢，邮箱：421843919@qq.com
+    </p>
+    </li>
+    <li>
+    <a href="/ajun_studio/article/details/7343781#comments">利用Spring AOP 更新memcached 缓存策略的实现</a>
+    <p style="margin:0px;"><a href="/zf95834073" class="user_name">zf95834073</a>:
+感谢博主的思路根据博主的思路，我完事了代码http://www.cnblogs.com/cczhou...
+    </p>
+    </li>
+    <li>
+    <a href="/ajun_studio/article/details/8066550#comments">nginx windows 下安装和配置</a>
+    <p style="margin:0px;"><a href="/sarahuan" class="user_name">sarahuan</a>:
+请问上述是在哪里配置的？
+    </p>
+    </li>
+    <li>
+    <a href="/ajun_studio/article/details/6807181#comments">利用cglib给javabean动态添加属性</a>
+    <p style="margin:0px;"><a href="/liujunhao225" class="user_name">liujunhao225</a>:
+挺好的。你写的东西很有价值。List list = this.jdbcTemplate.query(...
+    </p>
+    </li>
+    <li>
+    <a href="/ajun_studio/article/details/6728358#comments">jquery 图片延迟加载的实现</a>
+    <p style="margin:0px;"><a href="/tandaly" class="user_name">tandaly</a>:
+不错哟
+    </p>
+    </li>
+    <li>
+    <a href="/ajun_studio/article/details/6932185#comments">利用freemarker 静态化网页</a>
+    <p style="margin:0px;"><a href="/mingtianmeihao" class="user_name">mingtianmeihao</a>:
+整合后 运行成功了  受用了 谢谢
+    </p>
+    </li>
+    <li>
+    <a href="/ajun_studio/article/details/6831241#comments">自己动手实现IOC和MVC-----目录</a>
+    <p style="margin:0px;"><a href="/5iasp" class="user_name">5iasp</a>:
+我也写了一个类似的，不过是类似struts1的，比较简单的mvc实现，http://blog.csd...
+    </p>
+    </li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+</div>
+
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js?v=1.1"></script>
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=1104213"></script>
+
+<script type="text/javascript">
+document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date()/120000).toString(36) + '="></'+'script>');
+</script>
+
+<script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js?v=1"></script>
+
+
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+
+</div>
+</body>
+</html>

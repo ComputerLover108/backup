@@ -1,0 +1,46 @@
+20
+12月
+shell中x=*的学问
+不能不懂脚本, 北邮人技术笔试
+本原创文章属于《Linux大棚》博客，博客地址为http://roclinux.cn。文章作者为rocrocket。
+为了防止某些网站的恶性转载，特在每篇文章前加入此信息，还望读者体谅。
+
+===
+
+[正文开始]
+
+文章名字匪夷所思。殊不知，这是shell编程的一个很重要的知识点。赶快弥补一下。
+
+在shell的变量赋值时，如果我执行了x=*，问题就出来了，shell是将*替换为当前目录下的文件列表然后赋值给x，还是直接将*赋值给了x呢？
+
+给你出个主意，你执行echo $x看看出现什么东西，不久一目了然了么？
+
+
+[rocrocket@rocrocket ~]$ myvar=*
+
+[rocrocket@rocrocket ~]$ echo $myvar
+apache-tomcat-5.5.26.tar.gz audiodump.wav Desktop Documents Download dwhelper educonn.tar.gz Music Pictures Public subversion-1.4.0-29.i586.rpm subversion-server-1.4.0-29.i586.rpm Templates Videos
+
+明白了吧? 原来*会被自动替换为当前目录下的文件列表。
+
+你是不是以为问题解决了，豁然开朗了。其实不然。如果你考虑比较周全，思维比较敏捷，你还会继续问问题：“这个星号的替换到底是在哪个步骤发生的？是在x=*时？还是在echo $x时？”
+
+不买关子，其实上面我出的主意不能让我们完全看清本质。这是一个shell的知识点，直接告诉大家吧。
+
+shell在给变量赋值时不进行文件名替换。所以当你执行x=*时，只是一个星号赋值给了x变量。真正的替换发生在echo $x时。
+
+详细的步骤是这样的：
+
+1 当执行x=*时，shell扫描命令行，把*赋值给x。
+
+2 当执行echo $x时，shell先将$x替换为*
+
+3 shell将*替换为当前目录下的文件列表
+
+4 shell执行echo命令，将文件列表作为参数传递给它。
+
+步骤就是这样，不难，只要记住：“变量赋值时不做匹配替换。shell先做变量替换，在做文件名替换，最后处理参数”。
+
+over~
+
+作者 rocrocket 于 2:54 下午
